@@ -12,7 +12,7 @@ using namespace pbbs;
 int main (int argc, char *argv[]) {
   timer t("summation", true);
 
-  size_t n=1000000000;
+  size_t n=10000000000;
   int* arr = new int[n];
   for (size_t i=0; i < n; i++) {
     arr[i]=i%3;
@@ -32,11 +32,12 @@ int main (int argc, char *argv[]) {
   //T res1 = 0;
   //for(size_t i=0; i<n; i++){
   //    res1 += arr[i];
-  //}
+ // }
+  //t.next("serial sum");
+  cout << res1 << endl;
   gettimeofday(&end, NULL);
   double delta = ((end.tv_sec  - start.tv_sec) * 1000000u + end.tv_usec - start.tv_usec) / 1.e6;
   cout << "serial time:" << delta << endl;
-  //t.next("serial sum");
   
   gettimeofday(&start, NULL);
   //int rounds=5;
@@ -44,6 +45,7 @@ int main (int argc, char *argv[]) {
       T res2 = reduce(A, m);
       //t.next("parallel sum");
   //}
+  cout << res2 << endl;
   gettimeofday(&end, NULL);
   delta = ((end.tv_sec  - start.tv_sec) * 1000000u + end.tv_usec - start.tv_usec) / 1.e6;
   cout << "parallel time:" << delta << endl;
