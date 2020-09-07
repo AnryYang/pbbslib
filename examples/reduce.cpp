@@ -28,6 +28,16 @@ int main (int argc, char *argv[]) {
 
   struct timeval start, end;
   gettimeofday(&start, NULL);
+  T res0 = 0;
+  for(size_t i=0; i<n; i++){
+      res0 += arr[i];
+  }
+  cout << res0 << endl;
+  gettimeofday(&end, NULL);
+  double delta = ((end.tv_sec  - start.tv_sec) * 1000000u + end.tv_usec - start.tv_usec) / 1.e6;
+  cout << "simple serial time:" << delta << endl;
+
+  gettimeofday(&end, NULL);
   T res1 = reduce_serial(A, m);
   //T res1 = 0;
   //for(size_t i=0; i<n; i++){
@@ -36,8 +46,8 @@ int main (int argc, char *argv[]) {
   //t.next("serial sum");
   cout << res1 << endl;
   gettimeofday(&end, NULL);
-  double delta = ((end.tv_sec  - start.tv_sec) * 1000000u + end.tv_usec - start.tv_usec) / 1.e6;
-  cout << "serial time:" << delta << endl;
+  delta = ((end.tv_sec  - start.tv_sec) * 1000000u + end.tv_usec - start.tv_usec) / 1.e6;
+  cout << "parallel time with 1 worker:" << delta << endl;
   
   gettimeofday(&start, NULL);
   //int rounds=5;
@@ -48,7 +58,7 @@ int main (int argc, char *argv[]) {
   cout << res2 << endl;
   gettimeofday(&end, NULL);
   delta = ((end.tv_sec  - start.tv_sec) * 1000000u + end.tv_usec - start.tv_usec) / 1.e6;
-  cout << "parallel time:" << delta << endl;
+  cout << "parallel time with all workers:" << delta << endl;
 
 //  cout << res1 << " " << res2 << endl;
 }
